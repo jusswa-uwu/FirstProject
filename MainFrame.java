@@ -36,6 +36,53 @@ public class MainFrame{
            
 }
 
+    public void Merger(int[] arr) {
+          int Arrlength = arr.length;
+          if(Arrlength < 2) {
+            return;
+          }
+          int midpoint = arr.length/2;
+          int[] leftHand = new int[midpoint];
+          int[] rightHand = new int[Arrlength- midpoint];
+          for(int i =0;i<midpoint;i++) {
+            leftHand[i] = arr[i]; 
+          }
+          for(int i = midpoint;i<arr.length;i++) {
+            rightHand[i-midpoint] = arr[i];
+          }
+          Merger(leftHand);
+          Merger(rightHand);
 
-    
+          Conquer(arr, leftHand, rightHand);
+    }
+    private static void Conquer(int[] inputArr,int[] leftHand,int[] rightHand) {
+        int LeftSize = leftHand.length;
+        int RightSize = rightHand.length;
+        int i =0,j=0,k=0;
+        
+        while(i < LeftSize && j < RightSize) {
+            if(leftHand[i] <= rightHand[j]) {
+                inputArr[k] = leftHand[i];
+                i++;
+            }
+            else {
+                inputArr[k] = rightHand[j];
+                j++;
+            }
+            k++;
+        }
+        if(i < LeftSize) {
+            inputArr[i] = leftHand[i];
+        }
+        if(j < RightSize) {
+            inputArr[j] = rightHand[j];
+        }
+        
+    }
+    public void printArray(int[] Array) {
+        System.out.println();
+        for(int r:Array) {
+            System.out.print(r);
+        }
+    }
 }
